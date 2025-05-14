@@ -35,6 +35,12 @@ const addIncome = {
           .json({ message: "Amount must be a Positive Number" });
       }
 
+      if (new Date(date) < new Date()) {
+        return res.status(400).json({
+          message: "Date must be greater than or equal to today",
+        });
+      }
+
       // Sanitize inputs
       const sanitizedTitle = xss(title);
       const sanitizedCategory = xss(category);

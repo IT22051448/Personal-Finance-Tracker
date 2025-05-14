@@ -27,6 +27,12 @@ const budgetController = {
         return res.status(400).json({ message: "Invalid input values" });
       }
 
+      if (new Date(startDate) > new Date(endDate)) {
+        return res.status(400).json({
+          message: "End date must be greater than start date",
+        });
+      }
+
       // Fetch user
       const user = await User.findOne({ email });
 

@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import CommonForm from "@/components/common/form";
 import { resigterFormControls } from "@/config";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "@/redux/authSlice";
 import CurrencySelector from "@/components/user_components/CurrencySelector";
 
@@ -19,12 +19,20 @@ const AuthSignup = () => {
   const [formData, setFormData] = useState(initialState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
   function onSubmit(event) {
     event.preventDefault();
     console.log(formData);
     dispatch(registerUser(formData)).then((data) => {
-      if (data?.payload?.success) navigate("/user/home");
+      if (data?.payload?.success) {
+        navigate("/user/home");
+      } else {
+        // Handle unsuccessful response
+        setError(
+          "An error occurred while creating your account. Please try again."
+        );
+      }
     });
   }
 
@@ -53,6 +61,11 @@ const AuthSignup = () => {
           </Link>
         </p>
       </div>
+      {error && (
+        <div className="bg-red-500 text-white p-3 rounded-md mb-4 text-center">
+          {error}
+        </div>
+      )}
       <CommonForm
         formControls={resigterFormControls}
         buttonText={"Create Account"}

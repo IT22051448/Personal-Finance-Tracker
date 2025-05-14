@@ -26,6 +26,16 @@ const updateIncome = {
         return res.status(400).json({ message: "User email is required" });
       }
 
+      if (!title) {
+        return res.status(400).json({ message: "Title is required" });
+      }
+
+      if (new Date(date) < new Date()) {
+        return res.status(400).json({
+          message: "Date must be greater than or equal to today",
+        });
+      }
+
       // Find the existing income entry
       const existingIncome = await Income.findOne({ _id: id, email });
       if (!existingIncome) {

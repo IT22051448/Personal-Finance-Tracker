@@ -306,7 +306,6 @@ const Incomes = () => {
                   name="amount"
                   value={formData.amount}
                   onChange={handleChange}
-                  required
                   className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 sm:text-sm"
                 />
               </div>

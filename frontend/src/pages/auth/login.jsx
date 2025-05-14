@@ -56,13 +56,13 @@ const AuthLogin = () => {
             className="font-medium ml-2 text-yellow-500 hover:underline"
             to="/auth/signup"
           >
-            Signup
+            Sign Up
           </Link>
         </p>
       </div>
       <CommonForm
         formControls={loginFormControls}
-        buttonText={"Sign Up"}
+        buttonText={"Sign In"}
         formData={formData}
         setFormData={setFormData}
         onSubmit={onSubmit}

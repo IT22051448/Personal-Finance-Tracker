@@ -144,21 +144,32 @@ const Transactions = () => {
       if (!token) throw new Error("Authentication token is missing.");
 
       const endpoint = `http://localhost:5000/api/transaction/${editForm.type}/${editingTransaction._id}`;
-      await axios.patch(
-        endpoint,
-        {
-          ...editForm,
-          currency: editForm.currency,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      try {
+        await axios.patch(
+          endpoint,
+          {
+            ...editForm,
+            currency: editForm.currency,
+          },
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
 
-      setMessage({
-        type: "success",
-        text: "Transaction updated successfully!",
-      });
+        setMessage({
+          type: "success",
+          text: "Transaction updated successfully!",
+        });
+      } catch (error) {
+        // Optional: Extract a user-friendly error message
+        const errorMessage =
+          error?.response?.data?.message || "Failed to update transaction.";
+
+        setMessage({
+          type: "error",
+          text: errorMessage,
+        });
+      }
 
       fetchTransactions();
       setEditingTransaction(null);

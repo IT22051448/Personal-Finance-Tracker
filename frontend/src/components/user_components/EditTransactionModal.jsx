@@ -9,7 +9,7 @@ const EditTransactionModal = ({
   handleSaveEdit,
   capitalizeWords,
 }) => {
-  if (!editForm) return null; // Prevent rendering if no transaction is being edited
+  if (!editForm) return null;
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
@@ -20,10 +20,14 @@ const EditTransactionModal = ({
         <form className="grid grid-cols-2 gap-6">
           {/* Title */}
           <div className="col-span-2">
-            <label className="block text-sm font-bold text-gray-700 mb-1">
+            <label
+              htmlFor="edit-title"
+              className="block text-sm font-bold text-gray-700 mb-1"
+            >
               <span className="text-red-500">*</span> Title
             </label>
             <input
+              id="edit-title"
               type="text"
               value={editForm.title}
               onChange={(e) =>
@@ -33,12 +37,16 @@ const EditTransactionModal = ({
             />
           </div>
 
-          {/* Type (Read-Only) */}
+          {/* Type */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="edit-type"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Type
             </label>
             <input
+              id="edit-type"
               type="text"
               value={capitalizeWords(editForm.type)}
               readOnly
@@ -50,6 +58,7 @@ const EditTransactionModal = ({
           <div>
             {editForm.type === "income" ? (
               <CategoryIncomeSelector
+                id="edit-category"
                 value={editForm.category}
                 onChange={(e) =>
                   setEditForm({ ...editForm, category: e.target.value })
@@ -58,6 +67,7 @@ const EditTransactionModal = ({
               />
             ) : (
               <CategoryExpenseSelector
+                id="edit-category"
                 value={editForm.category}
                 onChange={(e) =>
                   setEditForm({ ...editForm, category: e.target.value })
@@ -69,10 +79,14 @@ const EditTransactionModal = ({
 
           {/* Amount */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="edit-amount"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               <span className="text-red-500">*</span> Amount
             </label>
             <input
+              id="edit-amount"
               type="number"
               value={editForm.amount}
               onChange={(e) =>
@@ -84,10 +98,14 @@ const EditTransactionModal = ({
 
           {/* Currency */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="edit-currency"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               <span className="text-red-500">*</span> Currency
             </label>
             <input
+              id="edit-currency"
               type="text"
               value={editForm.currency}
               onChange={(e) =>
@@ -99,10 +117,14 @@ const EditTransactionModal = ({
 
           {/* Tags */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="edit-tags"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Tags
             </label>
             <input
+              id="edit-tags"
               type="text"
               value={editForm.tags}
               onChange={(e) =>
@@ -115,10 +137,14 @@ const EditTransactionModal = ({
 
           {/* Description */}
           <div className="col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="edit-description"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Description
             </label>
             <textarea
+              id="edit-description"
               value={editForm.description}
               onChange={(e) =>
                 setEditForm({ ...editForm, description: e.target.value })
@@ -129,10 +155,14 @@ const EditTransactionModal = ({
 
           {/* Date */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="edit-date"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Date
             </label>
             <input
+              id="edit-date"
               type="date"
               value={editForm.date}
               onChange={(e) =>
@@ -145,6 +175,7 @@ const EditTransactionModal = ({
           {/* Recurring Transaction Toggle */}
           <div className="flex items-center space-x-2">
             <input
+              id="edit-isRecurring"
               type="checkbox"
               checked={editForm.isRecurring}
               onChange={(e) => {
@@ -158,18 +189,22 @@ const EditTransactionModal = ({
                 });
               }}
             />
-            <label className="text-sm text-gray-700">
+            <label htmlFor="edit-isRecurring" className="text-sm text-gray-700">
               Recurring Transaction
             </label>
           </div>
 
-          {/* Recurrence Type (Only show if isRecurring is true) */}
+          {/* Recurrence Type */}
           {editForm.isRecurring && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="edit-recurrenceType"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Recurrence Type
               </label>
               <select
+                id="edit-recurrenceType"
                 value={editForm.recurrenceType}
                 onChange={(e) =>
                   setEditForm({ ...editForm, recurrenceType: e.target.value })
@@ -185,6 +220,7 @@ const EditTransactionModal = ({
           {/* Action Buttons */}
           <div className="col-span-2 flex justify-end space-x-4">
             <button
+              id="edit-cancel-btn"
               type="button"
               onClick={() => setEditingTransaction(null)}
               className="px-4 py-2 bg-gray-500 text-white rounded-lg"
@@ -192,6 +228,7 @@ const EditTransactionModal = ({
               Cancel
             </button>
             <button
+              id="edit-save-btn"
               type="button"
               onClick={handleSaveEdit}
               className="px-4 py-2 bg-indigo-500 text-white rounded-lg"

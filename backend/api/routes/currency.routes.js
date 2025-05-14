@@ -4,11 +4,7 @@ import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.get(
-  "/",
-  authMiddleware(["admin", "user"]),
-  currencyController.getCurrencies
-);
+router.get("/", currencyController.getCurrencies);
 
 router.post("/add", authMiddleware(["admin"]), currencyController.addCurrency);
 

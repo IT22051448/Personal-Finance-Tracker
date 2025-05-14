@@ -28,7 +28,8 @@
     "nodemailer": "^6.9.15",
     "pino": "^9.3.2",
     "pino-caller": "^3.4.0",
-    "pino-pretty": "^11.2.2"
+    "pino-pretty": "^11.2.2",
+    "xss": "^1.0.15"
   },
   "devDependencies": {
     "@babel/core": "^7.26.9",
