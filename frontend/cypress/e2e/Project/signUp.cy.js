@@ -126,4 +126,26 @@ describe("Signup Form Test", () => {
     ).should("be.visible");
     cy.url().should("not.include", "/user/home");
   });
+
+  it("successfully deletes a budget entry", () => {
+    cy.visit("http://localhost:5173/user/budgets");
+    cy.get("#category").click();
+    cy.contains("div", "Miscellaneous").click();
+    cy.get('input[name="budget"]').type("100");
+    cy.get('input[name="startDate"]').type("2025-06-01");
+    cy.get('input[name="endDate"]').type("2025-06-30");
+    cy.get('button[type="submit"]').click();
+
+    cy.contains("Budget added/updated successfully.").should("be.visible");
+    cy.reload();
+
+    cy.contains(".p-6", "Miscellaneous")
+      .should("exist")
+      .within(() => {
+        cy.contains("Delete").click();
+      });
+
+    cy.contains("Miscellaneous").should("not.exist");
+    cy.contains("100").should("not.exist");
+  });
 });

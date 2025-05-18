@@ -114,4 +114,27 @@ describe("Add Budget", () => {
 
     cy.get('input[name="budget"]').should("have.value", "");
   });
+
+  it("successfully deletes a budget entry", () => {
+    cy.visit("http://localhost:5173/user/budgets");
+    cy.get("#category").click();
+    cy.contains("div", "Shopping").click();
+    cy.get('input[name="budget"]').type("100");
+    cy.get('input[name="startDate"]').type("2025-06-01");
+    cy.get('input[name="endDate"]').type("2025-06-30");
+    cy.get('button[type="submit"]').click();
+
+    cy.contains("Budget added/updated successfully.").should("be.visible");
+    cy.reload();
+
+    cy.contains(".p-6", "Shopping")
+      .should("exist")
+      .within(() => {
+        cy.contains("Delete").click();
+      });
+
+    cy.reload();
+    cy.contains("Shopping").should("not.exist");
+    cy.contains("100").should("not.exist");
+  });
 });

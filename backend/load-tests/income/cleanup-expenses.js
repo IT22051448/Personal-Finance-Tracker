@@ -7,17 +7,20 @@ export default function () {
   const token = getToken();
   const headers = { Authorization: `Bearer ${token}` };
 
-  const res = http.get(`${BASE_URL}/transaction/expenses`, { headers });
+  console.log("Headers: ", headers);
+
+  const res = http.get(`${BASE_URL}/transaction/incomes`, { headers });
 
   const data = res.json();
-  const expenses = data?.expenses || []; // ✅ correctly get the array
+  const incomes = data?.incomes || [];
 
-  expenses
-    .filter(e => e.description === "Test") // filter your load-test data
+  incomes
+    .filter(e => e.description === "Test")
     .forEach(e => {
-      const delRes = http.del(`${BASE_URL}/transactions/expense/${e._id}`, {
+      const delRes = http.del(`${BASE_URL}/transaction/income/${e._id}`, null, {
         headers,
       });
       console.log(`Deleted ${e._id}, status: ${delRes.status}`);
+      console.log("Response body:", delRes.body); // Logs the full response
     });
 }
