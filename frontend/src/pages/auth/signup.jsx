@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import CommonForm from "@/components/common/form";
 import { resigterFormControls } from "@/config";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { registerUser } from "@/redux/authSlice";
 import CurrencySelector from "@/components/user_components/CurrencySelector";
 
@@ -21,14 +21,25 @@ const AuthSignup = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
 
+  function validateEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email.trim());
+  }
+
   function onSubmit(event) {
     event.preventDefault();
-    console.log(formData);
+
+    if (!validateEmail(formData.email)) {
+      setError(
+        "An error occurred while creating your account. Please try again."
+      );
+      return;
+    }
+
     dispatch(registerUser(formData)).then((data) => {
       if (data?.payload?.success) {
         navigate("/user/home");
       } else {
-        // Handle unsuccessful response
         setError(
           "An error occurred while creating your account. Please try again."
         );

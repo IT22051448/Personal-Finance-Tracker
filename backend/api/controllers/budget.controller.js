@@ -23,13 +23,19 @@ const budgetController = {
       startDate = xss(startDate);
       endDate = xss(endDate);
 
-      if (!category || !budget || budget < 0 || !startDate || !endDate) {
+      if (!category || !budget || budget <= 0 || !startDate || !endDate) {
         return res.status(400).json({ message: "Invalid input values" });
       }
 
       if (new Date(startDate) > new Date(endDate)) {
         return res.status(400).json({
           message: "End date must be greater than start date",
+        });
+      }
+
+      if (new Date(startDate).getTime() === new Date(endDate).getTime()) {
+        return res.status(400).json({
+          message: "Start date and end date cannot be the same",
         });
       }
 

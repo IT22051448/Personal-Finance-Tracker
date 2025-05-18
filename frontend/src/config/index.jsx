@@ -32,7 +32,7 @@ export const resigterFormControls = [
     label: "Email",
     placeholder: "Enter your email",
     componentType: "input",
-    type: "email",
+    type: "text",
   },
   {
     name: "password",
